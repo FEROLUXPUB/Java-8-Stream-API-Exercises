@@ -1,0 +1,18 @@
+package practice6Stream;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class VowelNameFilter {
+	public static void main(String []args) {
+		List<String>names = Arrays.asList("Alice","Bob","Eve","Oscar","Uma","Charlie","Ian","David");
+		
+		List<String> vowelNames = names.stream()
+				.filter(name -> name.matches("(?i)^[aeiou].*"))
+				.collect(Collectors.toList());
+				
+				vowelNames.forEach(System.out::println);
+	}
+
+}
