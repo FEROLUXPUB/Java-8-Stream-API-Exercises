@@ -1,0 +1,57 @@
+import java.util.stream.IntStream;
+
+public class StreamMapBenchmark {
+    public static void main(String[] args) {
+        int size = 10_000;
+
+        // Warm-up phase to avoid JVM warm-up bias
+        runSequential(size);
+        runParallel(size);
+
+        // Benchmark sequential
+        long startSeq = System.currentTimeMillis();
+        runSequential(size);
+        long endSeq = System.currentTimeMillis();
+        long seqTime = endSeq - startSeq;
+
+        // Benchmark parallel
+        long startPar = System.currentTimeMillis();
+        runParallel(size);
+        long endPar = System.currentTimeMillis();
+        long parTime = endPar - startPar;
+
+        // Output
+        System.out.println("Sequential time: " + seqTime + " ms");
+        System.out.println("Parallel time  : " + parTime + " ms");
+
+        if (parTime > 0) {
+            double speedup = (double) seqTime / parTime;
+            System.out.printf("Speedup: %.2fx%n", speedup);
+        } else {
+            System.out.println("Parallel time too fast to measure reliably.");
+        }
+    }
+
+    // Simulate a CPU-intensive mapping operation (e.g., dummy factorial)
+    public static void runSequential(int size) {
+        IntStream.rangeClosed(1, size)
+                 .map(StreamMapBenchmark::heavyComputation)
+                 .sum();
+    }
+
+    public static void runParallel(int size) {
+        IntStream.rangeClosed(1, size)
+                 .parallel()
+                 .map(StreamMapBenchmark::heavyComputation)
+                 .sum();
+    }
+
+    // Simulated heavy computation (intentionally slow)
+    public static int heavyComputation(int n) {
+        int result = 1;
+        for (int i = 1; i <= 500; i++) {
+            result = (result * i) % 1_000_000_007;
+        }
+        return result;
+    }
+}
