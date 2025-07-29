@@ -1,0 +1,29 @@
+import java.util.Arrays;
+import java.util.Random;
+
+public class SortComparison {
+    public static void main(String[] args) {
+        int size = 10_000_000; // 10 million elements
+        int[] original = new Random().ints(size, 1, 1_000_000).toArray();
+
+        // Clone arrays for fair comparison
+        int[] sequentialArray = original.clone();
+        int[] parallelArray = original.clone();
+
+        // Sequential sort timing
+        long startSequential = System.nanoTime();
+        Arrays.sort(sequentialArray);
+        long endSequential = System.nanoTime();
+        long timeSequential = (endSequential - startSequential) / 1_000_000;
+
+        // Parallel sort timing
+        long startParallel = System.nanoTime();
+        Arrays.parallelSort(parallelArray);
+        long endParallel = System.nanoTime();
+        long timeParallel = (endParallel - startParallel) / 1_000_000;
+
+        // Output results
+        System.out.println("Sequential sort time: " + timeSequential + " ms");
+        System.out.println("Parallel sort time:   " + timeParallel + " ms");
+    }
+}
