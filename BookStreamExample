@@ -1,0 +1,34 @@
+package practice5Stream;
+
+import java.util.stream.Stream;
+
+public class BookStreamExample {
+	public static void main(String[]args) {
+		Stream<Book> bookStream = Stream.<Book>builder()
+				.add(new Book("1984","George Orwell"))
+				.add(new Book("Brave New World", "Aldous Huxley"))
+				.add(new Book("The Alchemist","Paulo Coelho"))
+				.add(new Book("The Hobbit","J.R.R. Tolkien"))
+				.add(new Book("To kill a Mockingbird","Harper Lee" ))
+				.build();
+		
+		bookStream.forEach(System.out::println);
+	}
+
+}
+
+package practice5Stream;
+
+public class Book {
+	private String title;
+	private String author;
+	
+	public Book(String title, String author) {
+		this.title = title;
+		this.author = author;
+	}
+	@Override
+	public String toString() {
+		return "Book{title='" + title + "', author='" + author + "'}";
+	}
+}
