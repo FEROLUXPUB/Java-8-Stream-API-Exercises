@@ -1,0 +1,14 @@
+package practice25Stream;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ForEachOrderedExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+        System.out.println("Parallel stream with forEachOrdered:");
+        names.parallelStream()
+                .forEachOrdered(name -> System.out.println(Thread.currentThread().getName() + " -> " + name));
+    }
+}
