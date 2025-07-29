@@ -1,0 +1,17 @@
+package practice14Stream;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ForEachWithStringBuilder {
+	public static void main(String[] args) {
+		List<String> words = Arrays.asList("Java","Stream","are","powerful");
+		StringBuilder sentence = new StringBuilder();
+		
+		words.stream()
+		.forEach(word -> sentence.append(word).append(" "));
+		
+		System.out.println("Sentence:" + sentence.toString().trim());
+	}
+
+}
