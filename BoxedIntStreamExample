@@ -1,0 +1,18 @@
+import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
+
+public class BoxedIntStreamExample {
+    public static void main(String[] args) {
+        // Create an IntStream from 1 to 5
+        IntStream intStream = IntStream.rangeClosed(1, 5);
+
+        // Box to Stream<Integer>, collect to List
+        List<Integer> boxedList = intStream
+                .boxed()  // Convert int to Integer
+                .collect(Collectors.toList());
+
+        // Print the collected list
+        System.out.println("Boxed List: " + boxedList);
+    }
+}
