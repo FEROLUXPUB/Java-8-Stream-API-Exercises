@@ -1,0 +1,31 @@
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class CustomStringCollectorExample {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("banana", "apple", "cherry", "date", "fig", "elderberry");
+
+        // Use parallel stream with custom collector
+        String result = words.parallelStream().collect(customStringCollector());
+
+        System.out.println("Concatenated (sorted) string: " + result);
+    }
+
+    // Custom Collector
+    public static Collector<String, List<String>, String> customStringCollector() {
+        return Collector.of(
+            ArrayList::new,                      // Supplier: create new mutable result container
+            List::add,                           // Accumulator: add each element to the list
+            (list1, list2) -> {                  // Combiner: merge two partial lists
+                list1.addAll(list2);
+                return list1;
+            },
+            list -> {                            // Finisher: sort and concatenate
+                Collections.sort(list);          // Sort alphabetically
+                return String.join(", ", list);  // Join with comma separator
+            }
+        );
+    }
+}
