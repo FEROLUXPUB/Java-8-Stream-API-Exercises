@@ -1,0 +1,22 @@
+package practice23;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
+
+public class ParallelSumExample {
+    public static void main(String[] args) {
+       
+        List<Long> numbers = LongStream.rangeClosed(1, 1_000_000)
+                .boxed()
+                .collect(Collectors.toList());
+
+        
+        long totalSum = numbers.parallelStream()
+                .mapToLong(Long::longValue)
+                .sum();
+
+        
+        System.out.println("Total sum: " + totalSum);
+    }
+}
