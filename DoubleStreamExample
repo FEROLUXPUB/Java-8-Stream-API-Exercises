@@ -1,0 +1,15 @@
+package practice3Stream;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class DoubleStreamExample {
+	public static void main(String[] args) {
+		Stream<Double> doubleStream = Stream.of(3.14, 1.618, 2.718, 0.577);
+		
+		List<Double> doubleList = doubleStream.collect(Collectors.toList());
+				System.out.println(doubleList);
+	}
+
+}
